@@ -1163,7 +1163,7 @@ class OvercookedGridworld(object):
             }
 
         def vision(self, model,state,npc_action):
-
+            future=""
             prev_state=state
             objectif = npc_action 
             c=1
