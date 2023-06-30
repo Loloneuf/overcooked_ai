@@ -159,8 +159,10 @@ socket.on('state_pong', function(data) {
 });
 
 
-socket.on('stuck',function(data){
-    document.getElementById("log_input").value  += "\nI'm stuck, can you move ?";
+socket.on('explanations',function(data){
+    document.getElementById("log_input").value += "\n" + data.infos;
+    if (data.stuck){
+    document.getElementById("log_input").value  += "\nI'm stuck, can you move ?";}
 });
 
 socket.on('end_game', function(data) {
