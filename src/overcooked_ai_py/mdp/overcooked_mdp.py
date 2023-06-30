@@ -15,7 +15,6 @@ from overcooked_ai_py.utils import (
 )
 
 
-
 class Recipe:
     MAX_NUM_INGREDIENTS = 3
 
@@ -394,7 +393,6 @@ class ObjectState(object):
         """
         self.name = name
         self._position = tuple(position)
-        
 
     @property
     def position(self):
@@ -1074,7 +1072,29 @@ POTENTIAL_CONSTANTS = {
     },
 }
 
+class Explanations(object):
+        def __init__(self):
+            self.collide = False
+            self.objectif = "cook "
+            self.grad=[]
+            self.state=None
+            self.npc_action=None
 
+        def get_gradient(self,state,npc_action):
+            self.state=state
+            self.npc_action=npc_action
+
+
+        def log_gradient(self):
+            return "State : " + str(self.state) + "\n" +  "Deçision : " + str(self.npc_action)
+
+        def get_explanation(self):
+
+            if (self.collide) : end_m = "The pass is obstructed"
+
+            else : end_m = "The pass is free"
+
+            return "Mon objectif est " + self.objectif + end_m
 
 class OvercookedGridworld(object):
     """
@@ -1085,6 +1105,7 @@ class OvercookedGridworld(object):
 
     TODO: clean the organization of this class further.
     """
+
     #########################
     # INSTANTIATION METHODS #
     #########################
@@ -1148,6 +1169,8 @@ class OvercookedGridworld(object):
         self._prev_potential_params = {}
         # determines whether to start cooking automatically once 3 items are in the pot
         self.old_dynamics = old_dynamics
+
+        self.explain=Explanations()
 
     @staticmethod
     def from_layout_name(layout_name, **params_to_overwrite):
@@ -1232,17 +1255,11 @@ class OvercookedGridworld(object):
             **kwargs,
         }
         Recipe.configure(self.recipe_config)
-     
+
     #####################
     # BASIC CLASS UTILS #
     #####################
-    
-    class Explanations:
-        def __init__(self):
-            self.collide = False
-            
-    explain=Explanations()
-    
+
     def __eq__(self, other):
         return (
             np.array_equal(self.terrain_mtx, other.terrain_mtx)
@@ -1277,7 +1294,7 @@ class OvercookedGridworld(object):
     ##############
     # GAME LOGIC #
     ##############
-    
+
     def get_actions(self, state):
         """
         Returns the list of lists of valid actions for 'state'.
@@ -1417,7 +1434,6 @@ class OvercookedGridworld(object):
         # Resolve player movements
         self.resolve_movement(new_state, joint_action)
 
-
         # Finally, environment effects
         self.step_environment_effects(new_state)
 
@@ -1437,10 +1453,6 @@ class OvercookedGridworld(object):
                 new_state, motion_planner
             )
         return new_state, infos
-
-
-    def Is_collide(self):
-        return self.explain.collide
 
     def resolve_interacts(self, new_state, joint_action, events_infos):
         """
@@ -1517,7 +1529,7 @@ class OvercookedGridworld(object):
 
                 # Give shaped reward if pickup is useful
                 if self.is_dish_pickup_useful(new_state, pot_states):
-                    shaped_reward[player_idx] += 0*self.reward_shaping_params[
+                    shaped_reward[player_idx] += self.reward_shaping_params[
                         "DISH_PICKUP_REWARD"
                     ]
 
@@ -1547,7 +1559,7 @@ class OvercookedGridworld(object):
                     player.remove_object()  # Remove the dish
                     obj = new_state.remove_object(i_pos)  # Get soup
                     player.set_object(obj)
-                    shaped_reward[player_idx] += 0*self.reward_shaping_params[
+                    shaped_reward[player_idx] += self.reward_shaping_params[
                         "SOUP_PICKUP_REWARD"
                     ]
 
@@ -1566,7 +1578,7 @@ class OvercookedGridworld(object):
                         soup.add_ingredient(obj)
                         shaped_reward[
                             player_idx
-                        ] += 0*self.reward_shaping_params["PLACEMENT_IN_POT_REW"]
+                        ] += self.reward_shaping_params["PLACEMENT_IN_POT_REW"]
 
                         # Log potting
                         self.log_object_potting(
@@ -1584,7 +1596,7 @@ class OvercookedGridworld(object):
                 obj = player.get_object()
                 if obj.name == "soup":
                     delivery_rew = self.deliver_soup(new_state, player, obj)
-                    sparse_reward[player_idx] += 0*delivery_rew
+                    sparse_reward[player_idx] += delivery_rew
 
                     # Log soup delivery
                     events_infos["soup_delivery"][player_idx] = True
@@ -1608,10 +1620,11 @@ class OvercookedGridworld(object):
         if not discounted:
             if not recipe in state.all_orders:
                 return 0
+
             if not recipe in state.bonus_orders:
                 return recipe.value
 
-            return self.order_bonus *recipe.value
+            return self.order_bonus * recipe.value
         else:
             # Calculate missing ingredients needed to complete recipe
             missing_ingredients = list(recipe.ingredients)
@@ -1723,8 +1736,7 @@ class OvercookedGridworld(object):
         if self.is_transition_collision(old_positions, new_positions):
             return old_positions
         return new_positions
-        
-    
+
     def _get_terrain_type_pos_dict(self):
         pos_dict = defaultdict(list)
         for y, terrain_row in enumerate(self.terrain_mtx):
