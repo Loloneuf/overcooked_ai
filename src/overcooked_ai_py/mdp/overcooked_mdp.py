@@ -1127,7 +1127,7 @@ class OvercookedGridworld(object):
             ), "Only accept orders with 3 items when using the old_dynamics"
         self.height = len(terrain)
         self.width = len(terrain[0])
-        self.explain=Explications()
+        self.explain=Explanations()
         self.shape = (self.width, self.height)
         self.terrain_mtx = terrain
         self.terrain_pos_dict = self._get_terrain_type_pos_dict()
@@ -1212,8 +1212,6 @@ class OvercookedGridworld(object):
             else : end_m = "The pass is free"
 
             return "Mon objectif est " + self.objectif + end_m
-
-    self.explain=Explanations()
 
     @staticmethod
     def from_layout_name(layout_name, **params_to_overwrite):
