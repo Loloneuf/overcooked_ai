@@ -1168,7 +1168,7 @@ class OvercookedGridworld(object):
             objectif = npc_action 
             c=1
 
-            if objectif == "interact"
+            if objectif == "interact" :
                 compl = " now"
 
             else :
