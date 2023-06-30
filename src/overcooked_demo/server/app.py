@@ -647,12 +647,9 @@ def play_game(game: OvercookedGame, fps=6):
             )
             socketio.sleep(game.reset_timeout / 1000)
         else:
-            if (game.is_stuck() != False) :
-                socketio.emit(
-                    "stuck")
- 
+            app.logger.info(game.mdp.explain.log_gradient())
             socketio.emit(
-                "state_pong", {"state": game.get_state()}, room=game.id
+            "state_pong", {"state": game.get_state()}, room=game.id
             )
         socketio.sleep(1 / fps)
 
