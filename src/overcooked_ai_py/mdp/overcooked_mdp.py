@@ -1214,7 +1214,7 @@ class OvercookedGridworld(object):
 
             return "Mon objectif est " + self.objectif + end_m
 
-    self.explain=Explanations()
+        self.explain=Explanations()
 
     @staticmethod
     def from_layout_name(layout_name, **params_to_overwrite):
