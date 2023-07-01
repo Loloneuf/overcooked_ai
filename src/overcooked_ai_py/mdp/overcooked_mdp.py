@@ -1096,6 +1096,12 @@ class OvercookedGridworld(object):
             "LEFT": Direction.WEST,
             "RIGHT": Direction.EAST,
             "SPACE": Action.INTERACT,
+            (1,0): Direction.EAST,
+            (0,-1): Direction.NORTH,
+            (0,1): Direction.SOUTH,
+            (-1,0): Direction.WEST,
+            "interact": Action.INTERACT,
+            (0,0): Action.STAY,
             }
 
         def vision(self, model,state,npc_action):
