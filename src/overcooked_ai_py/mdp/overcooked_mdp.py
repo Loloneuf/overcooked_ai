@@ -1082,72 +1082,6 @@ class OvercookedGridworld(object):
 
     TODO: clean the organization of this class further.
     """
-
-    #########################
-    # INSTANTIATION METHODS #
-    #########################
-
-    def __init__(
-        self,
-        terrain,
-        start_player_positions,
-        start_bonus_orders=[],
-        rew_shaping_params=None,
-        layout_name="unnamed_layout",
-        start_all_orders=[],
-        num_items_for_soup=3,
-        order_bonus=2,
-        start_state=None,
-        old_dynamics=False,
-        **kwargs
-    ):
-        """
-        terrain: a matrix of strings that encode the MDP layout
-        layout_name: string identifier of the layout
-        start_player_positions: tuple of positions for both players' starting positions
-        start_bonus_orders: List of recipes dicts that are worth a bonus
-        rew_shaping_params: reward given for completion of specific subgoals
-        all_orders: List of all available order dicts the players can make, defaults to all possible recipes if empy list provided
-        num_items_for_soup: Maximum number of ingredients that can be placed in a soup
-        order_bonus: Multiplicative factor for serving a bonus recipe
-        start_state: Default start state returned by get_standard_start_state
-        """
-        self._configure_recipes(start_all_orders, num_items_for_soup, **kwargs)
-        self.start_all_orders = (
-            [r.to_dict() for r in Recipe.ALL_RECIPES]
-            if not start_all_orders
-            else start_all_orders
-        )
-        if old_dynamics:
-            assert all(
-                [
-                    len(order["ingredients"]) == 3
-                    for order in self.start_all_orders
-                ]
-            ), "Only accept orders with 3 items when using the old_dynamics"
-        self.height = len(terrain)
-        self.width = len(terrain[0])
-        self.explain=Explanations()
-        self.shape = (self.width, self.height)
-        self.terrain_mtx = terrain
-        self.terrain_pos_dict = self._get_terrain_type_pos_dict()
-        self.start_player_positions = start_player_positions
-        self.num_players = len(start_player_positions)
-        self.start_bonus_orders = start_bonus_orders
-        self.reward_shaping_params = (
-            BASE_REW_SHAPING_PARAMS
-            if rew_shaping_params is None
-            else rew_shaping_params
-        )
-        self.layout_name = layout_name
-        self.order_bonus = order_bonus
-        self.start_state = start_state
-        self._opt_recipe_discount_cache = {}
-        self._opt_recipe_cache = {}
-        self._prev_potential_params = {}
-        # determines whether to start cooking automatically once 3 items are in the pot
-        self.old_dynamics = old_dynamics
-
     class Explanations(object):
         def __init__(self):
             self.collide = False
@@ -1212,7 +1146,72 @@ class OvercookedGridworld(object):
             else : end_m = "The pass is free"
 
             return "Mon objectif est " + self.objectif + end_m
+    #########################
+    # INSTANTIATION METHODS #
+    #########################
 
+    def __init__(
+        self,
+        terrain,
+        start_player_positions,
+        start_bonus_orders=[],
+        rew_shaping_params=None,
+        layout_name="unnamed_layout",
+        start_all_orders=[],
+        num_items_for_soup=3,
+        order_bonus=2,
+        start_state=None,
+        old_dynamics=False,
+        **kwargs
+    ):
+        """
+        terrain: a matrix of strings that encode the MDP layout
+        layout_name: string identifier of the layout
+        start_player_positions: tuple of positions for both players' starting positions
+        start_bonus_orders: List of recipes dicts that are worth a bonus
+        rew_shaping_params: reward given for completion of specific subgoals
+        all_orders: List of all available order dicts the players can make, defaults to all possible recipes if empy list provided
+        num_items_for_soup: Maximum number of ingredients that can be placed in a soup
+        order_bonus: Multiplicative factor for serving a bonus recipe
+        start_state: Default start state returned by get_standard_start_state
+        """
+        self._configure_recipes(start_all_orders, num_items_for_soup, **kwargs)
+        self.start_all_orders = (
+            [r.to_dict() for r in Recipe.ALL_RECIPES]
+            if not start_all_orders
+            else start_all_orders
+        )
+        if old_dynamics:
+            assert all(
+                [
+                    len(order["ingredients"]) == 3
+                    for order in self.start_all_orders
+                ]
+            ), "Only accept orders with 3 items when using the old_dynamics"
+        self.height = len(terrain)
+        self.width = len(terrain[0])
+        self.explain=explain
+        self.shape = (self.width, self.height)
+        self.terrain_mtx = terrain
+        self.terrain_pos_dict = self._get_terrain_type_pos_dict()
+        self.start_player_positions = start_player_positions
+        self.num_players = len(start_player_positions)
+        self.start_bonus_orders = start_bonus_orders
+        self.reward_shaping_params = (
+            BASE_REW_SHAPING_PARAMS
+            if rew_shaping_params is None
+            else rew_shaping_params
+        )
+        self.layout_name = layout_name
+        self.order_bonus = order_bonus
+        self.start_state = start_state
+        self._opt_recipe_discount_cache = {}
+        self._opt_recipe_cache = {}
+        self._prev_potential_params = {}
+        # determines whether to start cooking automatically once 3 items are in the pot
+        self.old_dynamics = old_dynamics
+        self.explain=Explanations()
+    
     @staticmethod
     def from_layout_name(layout_name, **params_to_overwrite):
         """
