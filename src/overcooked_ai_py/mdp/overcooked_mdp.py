@@ -1083,7 +1083,8 @@ class OvercookedGridworld(object):
     TODO: clean the organization of this class further.
     """
     class Explanations(object):
-        def __init__(self):
+        def __init__(self, overcooked_world):
+            self.overcooked_world = overcooked_world
             self.collide = False
             self.objectif = "cook "
             self.grad=[]
@@ -1108,7 +1109,7 @@ class OvercookedGridworld(object):
 
             else :
                 while objectif != "interact" or c<6 :
-                    next_state,info =self.get_state_transition(self, prev_state, self.action_to_overcooked_action[objectif])
+                    next_state,info =self.overcooked_world.get_state_transition(self, prev_state, self.overcooked_world.action_to_overcooked_action[objectif])
                     objectif=model.action(next_state)
                     prev_state=next_state
                     c+=1
@@ -1209,7 +1210,7 @@ class OvercookedGridworld(object):
         self._prev_potential_params = {}
         # determines whether to start cooking automatically once 3 items are in the pot
         self.old_dynamics = old_dynamics
-        self.explain=self.Explanations()
+        self.explain=self.Explanations(self)
     
     @staticmethod
     def from_layout_name(layout_name, **params_to_overwrite):
