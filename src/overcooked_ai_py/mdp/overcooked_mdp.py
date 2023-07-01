@@ -1190,7 +1190,6 @@ class OvercookedGridworld(object):
             ), "Only accept orders with 3 items when using the old_dynamics"
         self.height = len(terrain)
         self.width = len(terrain[0])
-        self.explain=explain
         self.shape = (self.width, self.height)
         self.terrain_mtx = terrain
         self.terrain_pos_dict = self._get_terrain_type_pos_dict()
@@ -1210,7 +1209,7 @@ class OvercookedGridworld(object):
         self._prev_potential_params = {}
         # determines whether to start cooking automatically once 3 items are in the pot
         self.old_dynamics = old_dynamics
-        self.explain=Explanations()
+        self.explain=self.Explanations()
     
     @staticmethod
     def from_layout_name(layout_name, **params_to_overwrite):
