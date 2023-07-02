@@ -1115,7 +1115,7 @@ class OvercookedGridworld(object):
 
             else :
                 while objectif != "interact" or c<6 :
-                    next_state,info =self.overcooked_world.get_state_transition(self, prev_state, self.action_to_overcooked_action[objectif])
+                    next_state,info =self.overcooked_world.get_state_transition(prev_state, self.action_to_overcooked_action[objectif])
                     objectif=model.action(next_state)
                     prev_state=next_state
                     c+=1
