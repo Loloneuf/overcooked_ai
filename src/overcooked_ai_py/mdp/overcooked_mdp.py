@@ -1108,6 +1108,9 @@ class OvercookedGridworld(object):
             future=""
             prev_state=state
             objectif = npc_action
+            list_action = [objectif,Action.STAY]
+            next_state,info =self.overcooked_world.get_state_transition(prev_state, list_action)
+            #fin = model.action(next_state)
             '''if objectif == (0,1) :
                 objectif =  Direction.SOUTH
             elif objectif == (0,-1) : 
@@ -1144,7 +1147,7 @@ class OvercookedGridworld(object):
                     elif (key == "X"):
                         future = "I want to interact with the counter"'''
        
-            self.future= len([objectif,Action.STAY]) #future + compl
+            self.future= next_state #future + compl
 
         """
         def get_gradient(self,state,npc_action):
