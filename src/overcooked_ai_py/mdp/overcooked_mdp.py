@@ -1115,13 +1115,13 @@ class OvercookedGridworld(object):
 
             else :
                 while objectif != "interact" or c<6 :
-                    if string(self.action_to_overcooked_action[objectif]) == "1" : 
+                    if str(self.action_to_overcooked_action[objectif]) == "1" : 
                         action = Direction.NORTH
-                    elif string(self.action_to_overcooked_action[objectif]) == "2" : 
+                    elif str(self.action_to_overcooked_action[objectif]) == "2" : 
                         action = Direction.SOUTH
-                    elif string(self.action_to_overcooked_action[objectif]) == "3" : 
+                    elif str(self.action_to_overcooked_action[objectif]) == "3" : 
                         action = Direction.EAST
-                    elif strong(self.action_to_overcooked_action[objectif]) == "4" : 
+                    elif str(self.action_to_overcooked_action[objectif]) == "4" : 
                         action = Direction.WEST
                     else: 
                         action = Direction.WEST
