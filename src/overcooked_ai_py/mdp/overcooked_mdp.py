@@ -1115,7 +1115,15 @@ class OvercookedGridworld(object):
 
             else :
                 while objectif != "interact" or c<6 :
-                    next_state,info =self.overcooked_world.get_state_transition(prev_state, self.action_to_overcooked_action[objectif])
+                    if self.action_to_overcooked_action[objectif] == 1 : 
+                        action = Direction.NORTH
+                    elif self.action_to_overcooked_action[objectif] == 2 : 
+                        action = Direction.SOUTH
+                    elif self.action_to_overcooked_action[objectif] == 3 : 
+                        action = Direction.EAST
+                    elif self.action_to_overcooked_action[objectif] == 4 : 
+                        action = Direction.WEST
+                    next_state,info =self.overcooked_world.get_state_transition(prev_state, action)
                     objectif=model.action(next_state)
                     prev_state=next_state
                     c+=1
