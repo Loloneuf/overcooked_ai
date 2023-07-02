@@ -1107,7 +1107,7 @@ class OvercookedGridworld(object):
         def vision(self, model,state,npc_action):
             future=""
             prev_state=state
-            objectif = npc_action
+            objectif = npc_action[1]
             if objectif == (0,1) :
                 objectif =  Direction.SOUTH
             elif objectif == (0,-1) : 
