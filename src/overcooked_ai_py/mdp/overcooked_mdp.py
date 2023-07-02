@@ -1124,7 +1124,7 @@ class OvercookedGridworld(object):
                     elif str(self.action_to_overcooked_action[objectif]) == "4" : 
                         action = Direction.WEST
                     else:''' 
-                    action = "stay"
+                    action = [Action.STAY]
                     next_state,info =self.overcooked_world.get_state_transition(prev_state, action)
                     objectif=model.action(next_state)
                     prev_state=next_state
