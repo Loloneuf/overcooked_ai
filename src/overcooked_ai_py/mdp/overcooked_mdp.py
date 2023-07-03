@@ -1140,7 +1140,7 @@ class OvercookedGridworld(object):
                     elif (key == "X"):
                         future = "I want to interact with the counter"
             
-            self.future= str(tuple(x + y for x, y in zip(prev_state.players[0].position,prev_state.players[0].orientation))) + str(overcooked_world.terrain_pos_dict["D"])    #future + compl
+            self.future= str(tuple(x + y for x, y in zip(prev_state.players[0].position,prev_state.players[0].orientation))) + str(self.overcooked_world.terrain_pos_dict["D"])    #future + compl
         """
         def get_gradient(self,state,npc_action):
             self.state=state
