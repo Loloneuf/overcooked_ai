@@ -1125,8 +1125,8 @@ class OvercookedGridworld(object):
 
                 compl = " in" + str(c) + "actions"
                     
-            for key in self.terrain_pos_dict:
-                if self.terrain_pos_dict[key] == prev_state[Players.position] + prev_state[Players.orientation]: 
+            for key in self.overcooked_world.terrain_pos_dict:
+                if self.overcooked_world.terrain_pos_dict[key] == prev_state[Players.position] + prev_state[Players.orientation]: 
                     if (key == "D"):
                         future = "I want to pick a plate !"
                     elif (key == "O"):
