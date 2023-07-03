@@ -1106,6 +1106,7 @@ class OvercookedGridworld(object):
 
         def vision(self, model,state,npc_action):
             future=""
+            list_action =[]
             prev_state=state
             objectif = npc_action
             next_state,info =self.overcooked_world.get_state_transition(prev_state, list_action)
@@ -1118,7 +1119,7 @@ class OvercookedGridworld(object):
             else :
                 while objectif != Action.INTERACT or c<6 :
                     list_action = [objectif,Action.STAY]
-                    next_state,info =self.overcooked_world.get_state_transition(prev_state, action)
+                    next_state,info =self.overcooked_world.get_state_transition(prev_state, list_action)
                     objectif=model.action(next_state)
                     objectif=objectif[0]
                     prev_state=next_state
