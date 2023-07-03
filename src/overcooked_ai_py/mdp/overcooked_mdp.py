@@ -1141,8 +1141,6 @@ class OvercookedGridworld(object):
                         future = "I want to interact with the counter"
             
             self.future= future+ compl
-print(result)str((prev_state.players[0].position)[0] + (prev_state.players[0].orientation)[0])
-
         """
         def get_gradient(self,state,npc_action):
             self.state=state
