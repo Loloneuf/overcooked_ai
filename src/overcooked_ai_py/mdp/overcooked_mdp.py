@@ -1108,9 +1108,7 @@ class OvercookedGridworld(object):
             future=""
             list_action =[]
             prev_state=state
-            objectif = npc_action
-            next_state,info =self.overcooked_world.get_state_transition(prev_state, list_action)
-            fin = model.action(next_state)           
+            objectif = npc_action          
             c=1
 
             if objectif == Action.INTERACT :
