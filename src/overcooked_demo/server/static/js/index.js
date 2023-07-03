@@ -1,6 +1,5 @@
 // Persistent network connection that will be used to transmit real-time data
 var socket = io();
-
 /* * * * * * * * * * * * * * * * 
  * Button click event handlers *
  * * * * * * * * * * * * * * * */
@@ -24,6 +23,13 @@ $(function() {
         $('#tutorial').hide();
     });
 });
+
+$(function() {
+    $('#pause').click(function() {
+        socket.emit('pause', {});
+    });
+});
+
 
 $(function(){
     $('[data-toggle="tooltip"]').tooltip({
@@ -160,9 +166,12 @@ socket.on('state_pong', function(data) {
 
 
 socket.on('explanations',function(data){
-    document.getElementById("log_input").value += "\n" + data.infos;
+    document.getElementById("log_input").value += "\n" + data.future;
+    
     if (data.stuck){
-    document.getElementById("log_input").value  += "\nI'm stuck, can you move ?";}
+    	document.getElementById("log_input").value  += "\nI'm stuck, can you move ?";
+    }
+    document.getElementById("log_input").scrollTop=document.getElementById("log_input").scrollHeight;
 });
 
 socket.on('end_game', function(data) {
