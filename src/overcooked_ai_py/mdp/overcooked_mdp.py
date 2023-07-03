@@ -1126,7 +1126,7 @@ class OvercookedGridworld(object):
                 compl = " in" + str(c) + "actions"
                     
             for key in self.overcooked_world.terrain_pos_dict:
-                if self.overcooked_world.terrain_pos_dict[key] == prev_state[self.overcooked_world.Players.position] + prev_state[self.overcooked_world.Players.position]: 
+                if self.overcooked_world.terrain_pos_dict[key] == prev_state.players.position + prev_state.players.orientation: 
                     if (key == "D"):
                         future = "I want to pick a plate !"
                     elif (key == "O"):
@@ -1138,7 +1138,7 @@ class OvercookedGridworld(object):
                     elif (key == "X"):
                         future = "I want to interact with the counter"'''
        
-            self.future= str(state[players])#future + compl
+            self.future= future + compl
 
         """
         def get_gradient(self,state,npc_action):
