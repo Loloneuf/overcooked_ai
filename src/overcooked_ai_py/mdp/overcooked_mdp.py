@@ -1140,7 +1140,7 @@ class OvercookedGridworld(object):
                     elif (key == "X"):
                         future = "I want to interact with the counter"
             
-            self.future= futur + compl
+            self.future= future+ compl
 print(result)str((prev_state.players[0].position)[0] + (prev_state.players[0].orientation)[0])
 
         """
