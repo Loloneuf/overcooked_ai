@@ -1138,10 +1138,10 @@ class OvercookedGridworld(object):
                         future = "I want to serve the soup !"
                     elif (key == "P"):
                         if prev_state.players[0].has_object() :
-                            future = "I want to put a" + prev_state.players[0].held_object.name + "in the pot !"
+                            future = "I want to put a " + prev_state.players[0].held_object.name + " in the pot !"
                             if( pos_fin in prev_state.objects):
                                 if len(prev_state.objects[ pos_fin ].ingredients)== 3 :
-                                    future += "but the pot is already full )': " 
+                                    future += " but the pot is already full )': " 
                         else : 
                             future = "I want to turn the pot on !"
                             
