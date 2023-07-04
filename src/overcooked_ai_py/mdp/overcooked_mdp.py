@@ -1139,16 +1139,16 @@ class OvercookedGridworld(object):
                     elif (key == "P"):
                         if prev_state.players[0].has_object() :
                             future = "I want to put a" + prev_state.players[0].held_object.name + "in the pot !"
-                            #if len(prev_state.objects[ pos_fin ].ingredients)== 3 :
-                                #future += "but the pot is already full )': " 
+                            if( pos_fin in prev_state.objects):
+                                if len(prev_state.objects[ pos_fin ].ingredients)== 3 :
+                                    future += "but the pot is already full )': " 
                         else : 
                             future = "I want to turn the pot on !"
                             
                     elif (key == "X"):
                         future = "I want to interact with the counter"
 
-            for keys, value in prev_state.objects.items():
-                self.future= str(type(keys)) + " " +  str(type(value)) + str(type(tuple(x + y for x, y in zip( prev_state.players[0].position,  prev_state.players[0].orientation))))
+                self.future= future + compl
         """
         def get_gradient(self,state,npc_action):
             self.state=state
