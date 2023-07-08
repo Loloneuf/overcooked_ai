@@ -789,6 +789,8 @@ class OvercookedState(object):
         players,
         objects,
         bonus_orders=[],
+        self.unowned_objects_by_type = defaultdict(list),
+        self.player_objects_by_type = defaultdict(list),
         all_orders=[],
         timestep=0,
         **kwargs
