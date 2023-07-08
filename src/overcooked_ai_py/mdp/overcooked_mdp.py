@@ -808,8 +808,6 @@ class OvercookedState(object):
         for pos, obj in objects.items():
             assert obj.position == pos
         self.players = tuple(players)
-        self.unowned_objects_by_type = defaultdict(list)
-        self.player_objects_by_type = defaultdict(list)
         self.objects = objects
         self._bonus_orders = bonus_orders
         self._all_orders = all_orders
@@ -870,10 +868,10 @@ class OvercookedState(object):
         for all objects in the environment, including
         ones held by players.
         """
-        all_objs_by_type = self.unowned_objects_by_type.copy()
+        all_objs_by_type = defaultdict(list)
         for obj_type, player_objs in self.player_objects_by_type.items():
             if obj_type != None:
-                all_objs_by_type[obj_type].append(player_objs)
+                all_objs_by_type[obj_type].extend(player_objs)
         return all_objs_by_type
 
     @property
