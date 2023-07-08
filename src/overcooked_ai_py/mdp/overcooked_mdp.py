@@ -1148,7 +1148,7 @@ class OvercookedGridworld(object):
                     elif (key == "X"):
                         future = "I want to interact with the counter"
 
-                self.future= future + compl
+                self.future= str(state.all_objects_by_type())   #future + compl
         """
         def get_gradient(self,state,npc_action):
             self.state=state
