@@ -789,8 +789,6 @@ class OvercookedState(object):
         players,
         objects,
         bonus_orders=[],
-        self.unowned_objects_by_type = defaultdict(list),
-        self.player_objects_by_type = defaultdict(list),
         all_orders=[],
         timestep=0,
         **kwargs
@@ -810,6 +808,8 @@ class OvercookedState(object):
         for pos, obj in objects.items():
             assert obj.position == pos
         self.players = tuple(players)
+        self.unowned_objects_by_type = defaultdict(list)
+        self.player_objects_by_type = defaultdict(list)
         self.objects = objects
         self._bonus_orders = bonus_orders
         self._all_orders = all_orders
