@@ -872,7 +872,8 @@ class OvercookedState(object):
         """
         all_objs_by_type = self.unowned_objects_by_type.copy()
         for obj_type, player_objs in self.player_objects_by_type.items():
-            all_objs_by_type[obj_type].append(player_objs)
+            if obj_type != None:
+                all_objs_by_type[obj_type].append(player_objs)
         return all_objs_by_type
 
     @property
