@@ -868,10 +868,11 @@ class OvercookedState(object):
         for all objects in the environment, including
         ones held by players.
         """
-        all_objs_by_type = defaultdict(list)
+        all_objs_by_type = self.unowned_objects_by_type.copy()
         for obj_type, player_objs in self.player_objects_by_type.items():
-            if obj_type != None:
-                all_objs_by_type[obj_type].extend(player_objs)
+            print(obj_type)
+            #if obj_type != None:
+                #all_objs_by_type[obj_type].extend(player_objs)
         return all_objs_by_type
 
     @property
