@@ -1106,6 +1106,29 @@ class OvercookedGridworld(object):
             (0,0): Action.STAY,
             }
 
+
+
+        def Contrastif(self,model, state,npc_action):
+            dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct":0,"Objp1":0,"p1onion":0,"p1soup":0,"p1dish":0,"Objp2":0,"p2ogn":0,"p2soup":0,"p2dish":0}
+            if "soup" in state.unowned_objects_by_type.items() :
+                dict["soup"] = 1
+                dict[str(len(state.unowned_objects_by_type["soup"][0].ingredients)) + "ing"]=1
+                dict["ct"]= state.unowned_objects_by_type["soup"][0].cookingtick*(1/20)
+            if state.players[0].held_object != None : 
+                dict["Objp1"] = 1 
+                dict["p1" + state.players[0].held_object.name] = 1
+            if state.players[1].held_object != None : 
+                dict["Objp2"] = 1 
+                dict["p2" + state.players[1].held_object.name] = 1
+            array= np.array(dict.values())
+            self.future= array
+                
+                
+            
+                
+                
+
+        
         def vision(self, model,state,npc_action):
             future=""
             list_action =[]
