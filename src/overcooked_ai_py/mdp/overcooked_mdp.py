@@ -870,9 +870,9 @@ class OvercookedState(object):
         """
         all_objs_by_type = self.unowned_objects_by_type.copy()
         for obj_type, player_objs in self.player_objects_by_type.items():
-            print(obj_type)
+            #print(obj_type)
             #if obj_type != None:
-                #all_objs_by_type[obj_type].extend(player_objs)
+            all_objs_by_type[obj_type].extend(player_objs)
         return all_objs_by_type
 
     @property
@@ -1150,7 +1150,7 @@ class OvercookedGridworld(object):
                     elif (key == "X"):
                         future = "I want to interact with the counter"
 
-                self.future= str(prev_state.all_objects_by_type())   #future + compl
+                self.future= str(prev_state.all_objects_by_type)   #future + compl
         """
         def get_gradient(self,state,npc_action):
             self.state=state
