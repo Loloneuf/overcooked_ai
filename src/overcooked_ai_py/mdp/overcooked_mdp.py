@@ -1110,7 +1110,7 @@ class OvercookedGridworld(object):
 
         def contrastive(self,model, state,npc_action):
             dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct":0,"Objp1":0,"p1onion":0,"p1soup":0,"p1dish":0,"Objp2":0,"p2onion":0,"p2soup":0,"p2dish":0}
-            if "soup" in state.unowned_objects_by_type.items() :
+            if "soup" in state.unowned_objects_by_type :
                 dict["soup"] = 1
                 dict[str(len(state.unowned_objects_by_type["soup"][0].ingredients)) + "ing"]=1
                 dict["ct"]= state.unowned_objects_by_type["soup"][0].cooking_tick*(1/20)
