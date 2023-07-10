@@ -1169,7 +1169,7 @@ class OvercookedGridworld(object):
                     dict["ct3"]= int(1 <=cooking_tick and cooking_tick <=5)
                     dict["ct8"] = int(6 <=cooking_tick and cooking_tick <=10)
                     dict["ct13"] = int(11 <=cooking_tick and cooking_tick <=15)
-                    dict["ct17"] = int(15 <=cooking_tick and cooking_ticks <=19)
+                    dict["ct17"] = int(15 <=cooking_tick and cooking_tick <=19)
                     dict["ct20"] = int(cooking_tick == 20)
             if state.players[0].held_object != None : 
                 dict["Objp1"] = 1 
