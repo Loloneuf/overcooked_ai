@@ -1125,7 +1125,7 @@ class OvercookedGridworld(object):
                     ct=-1
                 else :
                     for key,value in dict.items():
-                        if(bool(value) and key[:2]=="ct" and (len(value)<5)) :
+                        if(bool(value) and key[:2]=="ct" and (len(key)<5)) :
                             ct=int(key[2:])            
                 
                 state_alt.objects[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(
