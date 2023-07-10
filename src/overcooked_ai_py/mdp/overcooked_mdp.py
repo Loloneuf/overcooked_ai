@@ -1117,10 +1117,17 @@ class OvercookedGridworld(object):
                 if (dict["1ing"] == 0 and dict["2ing"] == 0 and dict["3ing"] == 0)
                     num_ing = 0
                 else:
-                    num_ing = n for key,value in dict.items() n=key[0] if bool(value) 
+                    num_ing = n for key,value in dict.items() n=int(key[0]) if(bool(value) and key[1:]=="ing") 
+
+                if bool(dist["ct_idle"]):
+                    ct=-1
+                else :
+                    for key,value in dict.items():
+                        if(bool(value) and key[:2]=="ct" and (len(value)<5)) :
+                            ct=int(key[2:])            
                 
-                state_alt.object[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(position=self.overcooked_world.terrain_pos_dict["P"][0]\\
-                ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)] * num_ing 
+                state_alt.object[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(position=self.overcooked_world.terrain_pos_dict["P"][0]\
+                ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)] * num_ing, cooking_tick=,cooking_time=20)
                 
             
             for i in range(len(state_alt.players)) :
@@ -1144,7 +1151,7 @@ class OvercookedGridworld(object):
                     
         def contrastive(self,model, state,npc_action):
             
-            dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct_idle":0,"ct":0,"Objp1":0,"p1onion":0,"p1dish":0,"p1soup":0,"Objp2":0,"p2onion":0,"p2dish":0,"p2soup":0}
+            dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct_idle":0,"ct0":0,"ct3":0,"c8":0,"ct13":0,"ct17":0,"ct20":0,"Objp1":0,"p1onion":0,"p1dish":0,"p1soup":0,"Objp2":0,"p2onion":0,"p2dish":0,"p2soup":0}
             if "soup" in state.unowned_objects_by_type :
                 dict["soup"] = 1
                 soupstate = state.unowned_objects_by_type["soup"][0]
@@ -1154,10 +1161,10 @@ class OvercookedGridworld(object):
                 else:
                     cooking_ticks=(20 - soupstate.cook_time_remaining) 
                     dict["ct0"]= int(cooking_ticks == 0)
-                    dict["ct1-5"]= int(1 <=cooking_ticks and cooking_ticks <=5)
-                    dict["ct6-10"] = int(6 <=cooking_ticks and cooking_ticks <=10)
-                    dict["ct11-15"] = int(11 <=cooking_ticks and cooking_ticks <=15)
-                    dict["ct15-19"] = int(15 <=cooking_ticks and cooking_ticks <=19)
+                    dict["ct3"]= int(1 <=cooking_ticks and cooking_ticks <=5)
+                    dict["ct8"] = int(6 <=cooking_ticks and cooking_ticks <=10)
+                    dict["ct13"] = int(11 <=cooking_ticks and cooking_ticks <=15)
+                    dict["ct17"] = int(15 <=cooking_ticks and cookinsauter une ligne g_ticks <=19)
                     dict["ct20"] = int(cooking_ticks == 20)
             if state.players[0].held_object != None : 
                 dict["Objp1"] = 1 
@@ -1165,8 +1172,8 @@ class OvercookedGridworld(object):
             if state.players[1].held_object != None : 
                 dict["Objp2"] = 1 
                 dict["p2" + state.players[1].held_object.name] = 1
-            array= np.array(dict.values())
-            self.future= str(state.player_objects_by_type)
+            
+            self.future= "Current state :" + str(state) + "\n" + "Replic state :" +str(self.dict_to_state(state,dict)
                 
                 
             
