@@ -1147,7 +1147,7 @@ class OvercookedGridworld(object):
                 dict["Objp2"] = 1 
                 dict["p2" + state.players[1].held_object.name] = 1
             array= np.array(dict.values())
-            self.future= array
+            self.future= str(state.player_objects_by_type)
                 
                 
             
