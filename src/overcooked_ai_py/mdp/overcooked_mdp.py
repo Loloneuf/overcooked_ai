@@ -1114,7 +1114,7 @@ class OvercookedGridworld(object):
 
             
             if bool(dict["soup"]):
-                if (dict["1ing"] == 0 and dict["2ing"] == 0 and dict["3ing"] == 0)
+                if (dict["1ing"] == 0 and dict["2ing"] == 0 and dict["3ing"] == 0):
                     num_ing = 0
                 else:
                     num_ing = n for key,value in dict.items() n=int(key[0]) if(bool(value) and key[1:]=="ing") 
