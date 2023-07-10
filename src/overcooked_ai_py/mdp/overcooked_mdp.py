@@ -1121,15 +1121,18 @@ class OvercookedGridworld(object):
                         if(bool(value) and key[1:]=="ing"):
                             num_ing = int(key[0])
 
-                if bool(dist["ct_idle"]):
+                if bool(dict["ct_idle"]):
                     ct=-1
                 else :
                     for key,value in dict.items():
                         if(bool(value) and key[:2]=="ct" and (len(value)<5)) :
                             ct=int(key[2:])            
                 
-                state_alt.object[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(position=self.overcooked_world.terrain_pos_dict["P"][0]\
-                ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)] * num_ing, cooking_tick=ct,cooking_time=20)
+                state_alt.object[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(
+                    position=self.overcooked_world.terrain_pos_dict["P"][0],
+                    ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)] * num_ing, 
+                    cooking_tick=ct,
+                    cooking_time=20)
                 
             
             for i in range(len(state_alt.players)) :
