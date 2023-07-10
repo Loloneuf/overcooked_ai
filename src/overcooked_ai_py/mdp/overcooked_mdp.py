@@ -1115,7 +1115,7 @@ class OvercookedGridworld(object):
                 dict["soup"] = 1
                 soupstate = state.unowned_objects_by_type["soup"][0]
                 dict[str(len(soupstate.ingredients)) + "ing"]=1
-                if soupstate.is_idle():
+                if soupstate.is_idle:
                     dict["ct_idle"] = 1
                 else:
                     dict["ct"]= (20 - soupstate.cook_time_remaining())*(1/20) #check is_cooking, modif le time_remain 
