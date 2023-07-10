@@ -1107,34 +1107,23 @@ class OvercookedGridworld(object):
             (0,0): Action.STAY,
             }
 
-        elf,
-        position,
-        ingredients=[],
-        cooking_tick=-1,
-        cook_time=None,
-        **kwargs
-
-        
-        
+        """
         def dict_to_state(self,state,dict):
         
             state_alt=state.deepcopy()
             for i in range(len(state_alt.players)) :
                 if bool(dict["Objp"+str(i+1)]):
                     if bool(dict["p"+str(i+1)+"soup"]):
-                        state_alt.players[i].hold_object=SoupState(position=state_alt.players[i].position,ingredients=
+                        state_alt.players[i].hold_object=SoupState(position=state_alt.players[i].position,ingredients=[ObjectState(name="onion",position=state_alt.players[i].position]*3,cooking_tick=-1
 
                     else:
                         state_alt.players[i].hold_object=ObjectState(name = cle[2:] for cle,val in dict.items() if(cle[:2]==("p"+str(i+1)) and val==1), position=state_alt.players[i].position)
                 else :
                     state_alt.players[i].hold_object=None
-
+            return state_alt
+        """
             
                     
-            
-            
-            return state_alt
-
         def contrastive(self,model, state,npc_action):
             dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct_idle":0,"ct":0,"Objp1":0,"p1onion":0,"p1soup":0,"p1dish":0,"Objp2":0,"p2onion":0,"p2soup":0,"p2dish":0}
             if "soup" in state.unowned_objects_by_type :
@@ -1844,7 +1833,7 @@ class OvercookedGridworld(object):
                 # automatically starts cooking when the pot has 3 ingredients
                 if self.old_dynamics and (
                     not obj.is_cooking
-                    and not obj.is_ready
+                    and not obj.
                     and len(obj.ingredients) == 3
                 ):
                     obj.begin_cooking()
