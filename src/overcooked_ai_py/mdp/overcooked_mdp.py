@@ -1833,7 +1833,7 @@ class OvercookedGridworld(object):
                 # automatically starts cooking when the pot has 3 ingredients
                 if self.old_dynamics and (
                     not obj.is_cooking
-                    and not obj.
+                    and not obj.is_ready
                     and len(obj.ingredients) == 3
                 ):
                     obj.begin_cooking()
