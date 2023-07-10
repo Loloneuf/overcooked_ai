@@ -1107,25 +1107,44 @@ class OvercookedGridworld(object):
             (0,0): Action.STAY,
             }
 
-        """
+        
         def dict_to_state(self,state,dict):
         
             state_alt=state.deepcopy()
+
+            
+            if bool(dict["soup"]):
+                if (dict["1ing"] == 0 and dict["2ing"] == 0 and dict["3ing"] == 0)
+                    num_ing = 0
+                else:
+                    num_ing = n for key,value in dict.items() n=key[0] if bool(value) 
+                
+                state_alt.object[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(position=self.overcooked_world.terrain_pos_dict["P"][0]\\
+                ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)] * num_ing 
+                
+            
             for i in range(len(state_alt.players)) :
                 if bool(dict["Objp"+str(i+1)]):
-                    if bool(dict["p"+str(i+1)+"soup"]):
-                        state_alt.players[i].hold_object=SoupState(position=state_alt.players[i].position,ingredients=[ObjectState(name="onion",position=state_alt.players[i].position]*3,cooking_tick=-1
 
-                    else:
-                        state_alt.players[i].hold_object=ObjectState(name = cle[2:] for cle,val in dict.items() if(cle[:2]==("p"+str(i+1)) and val==1), position=state_alt.players[i].position)
+                    if bool(dict["p"+str(i+1)+"onion"]):
+                        state_alt.players[i].held_object=ObjectState(name="onion",position=state_alt.players[i].position)
+
+                    elif bool(dict["p"+str(i+1)+"dish"]):
+                        state_alt.players[i].held_object=ObjectState(name="dish",position=state_alt.players[i].position)
+
+                    elif bool(dict["p"+str(i+1)+"soup"]):
+                        state_alt.players[i].held_object=SoupState(position=state_alt.players[i].position,ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)]*3,cooking_tick=20,cooking_time=20)
+                    
                 else :
-                    state_alt.players[i].hold_object=None
+                    state_alt.players[i].held_object=None
+
             return state_alt
-        """
+        
             
                     
         def contrastive(self,model, state,npc_action):
-            dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct_idle":0,"ct":0,"Objp1":0,"p1onion":0,"p1soup":0,"p1dish":0,"Objp2":0,"p2onion":0,"p2soup":0,"p2dish":0}
+            
+            dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct_idle":0,"ct":0,"Objp1":0,"p1onion":0,"p1dish":0,"p1soup":0,"Objp2":0,"p2onion":0,"p2dish":0,"p2soup":0}
             if "soup" in state.unowned_objects_by_type :
                 dict["soup"] = 1
                 soupstate = state.unowned_objects_by_type["soup"][0]
@@ -1175,11 +1194,11 @@ class OvercookedGridworld(object):
                     c+=1
 
                 compl = " in " + str(c) + " actions"
-                    
+
+            tuple1 = prev_state.players[0].position
+            tuple2 = prev_state.players[0].orientation
+            pos_fin= tuple(x + y for x, y in zip(tuple1, tuple2))
             for key in self.overcooked_world.terrain_pos_dict:
-                tuple1 = prev_state.players[0].position
-                tuple2 = prev_state.players[0].orientation
-                pos_fin= tuple(x + y for x, y in zip(tuple1, tuple2))
                 if pos_fin in self.overcooked_world.terrain_pos_dict[key] : 
                     if (key == "D"):
                         future = "I want to pick a plate !"
