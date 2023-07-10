@@ -1112,8 +1112,12 @@ class OvercookedGridworld(object):
             dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct":0,"Objp1":0,"p1onion":0,"p1soup":0,"p1dish":0,"Objp2":0,"p2onion":0,"p2soup":0,"p2dish":0}
             if "soup" in state.unowned_objects_by_type :
                 dict["soup"] = 1
-                dict[str(len(state.unowned_objects_by_type["soup"][0].ingredients)) + "ing"]=1
-                dict["ct"]= (20 - state.unowned_objects_by_type["soup"][0].cook_time_remaining())*(1/20) #check is_cooking, modif le time_remain 
+                soupstate = state.unowned_objects_by_type["soup"][0]
+                dict[str(len(soupstate.ingredients)) + "ing"]=1
+                if soupstate.is_idle():
+                    dict"ct_idle" =
+                else:
+                    dict["ct"]= (20 - soupstate.cook_time_remaining())*(1/20) #check is_cooking, modif le time_remain 
             if state.players[0].held_object != None : 
                 dict["Objp1"] = 1 
                 dict["p1" + state.players[0].held_object.name] = 1
