@@ -1118,7 +1118,13 @@ class OvercookedGridworld(object):
                 if soupstate.is_idle:
                     dict["ct_idle"] = 1
                 else:
-                    dict["ct"]= (20 - soupstate.cook_time_remaining())*(1/20) #check is_cooking, modif le time_remain 
+                    cooking_ticks=(20 - soupstate.cook_time_remaining) 
+                    dict["ct0"]= int(cooking_ticks == 0)
+                    dict["ct1-5"]= int(1 <=cooking_ticks and cooking_ticks <=5)
+                    dict["ct6-10"] = int(6 <=cooking_ticks and cooking_ticks <=10)
+                    dict["ct11-15"] = int(11 <=cooking_ticks and cooking_ticks <=15)
+                    dict["ct15-19"] = int(15 <=cooking_ticks and cooking_ticks <=19)
+                    dict["ct20"] = int(cooking_ticks == 20)
             if state.players[0].held_object != None : 
                 dict["Objp1"] = 1 
                 dict["p1" + state.players[0].held_object.name] = 1
