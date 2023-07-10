@@ -1128,7 +1128,7 @@ class OvercookedGridworld(object):
                         if(bool(value) and key[:2]=="ct" and (len(value)<5)) :
                             ct=int(key[2:])            
                 
-                state_alt.object[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(
+                state_alt.objects[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(
                     position=self.overcooked_world.terrain_pos_dict["P"][0],
                     ingredients=[ObjectState(name="onion",position=self.overcooked_world.terrain_pos_dict["P"][0])] * num_ing, 
                     cooking_tick=ct,
