@@ -1130,7 +1130,7 @@ class OvercookedGridworld(object):
                 
                 state_alt.object[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(
                     position=self.overcooked_world.terrain_pos_dict["P"][0],
-                    ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)] * num_ing, 
+                    ingredients=[ObjectState(name="onion",position=self.overcooked_world.terrain_pos_dict["P"][0])] * num_ing, 
                     cooking_tick=ct,
                     cooking_time=20)
                 
