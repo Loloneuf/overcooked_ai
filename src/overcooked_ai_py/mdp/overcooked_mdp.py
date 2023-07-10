@@ -1129,7 +1129,7 @@ class OvercookedGridworld(object):
                             ct=int(key[2:])            
                 
                 state_alt.object[self.overcooked_world.terrain_pos_dict["P"][0]]=SoupState(position=self.overcooked_world.terrain_pos_dict["P"][0]\
-                ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)] * num_ing, cooking_tick=,cooking_time=20)
+                ingredients=[ObjectState(name="onion",position=state_alt.players[i].position)] * num_ing, cooking_tick=ct,cooking_time=20)
                 
             
             for i in range(len(state_alt.players)) :
@@ -1161,13 +1161,13 @@ class OvercookedGridworld(object):
                 if soupstate.is_idle:
                     dict["ct_idle"] = 1
                 else:
-                    cooking_ticks=(20 - soupstate.cook_time_remaining) 
-                    dict["ct0"]= int(cooking_ticks == 0)
-                    dict["ct3"]= int(1 <=cooking_ticks and cooking_ticks <=5)
-                    dict["ct8"] = int(6 <=cooking_ticks and cooking_ticks <=10)
-                    dict["ct13"] = int(11 <=cooking_ticks and cooking_ticks <=15)
-                    dict["ct17"] = int(15 <=cooking_ticks and cookinsauter une ligne g_ticks <=19)
-                    dict["ct20"] = int(cooking_ticks == 20)
+                    cooking_tick=(20 - soupstate.cook_time_remaining) 
+                    dict["ct0"]= int(cooking_tick == 0)
+                    dict["ct3"]= int(1 <=cooking_tick and cooking_tick <=5)
+                    dict["ct8"] = int(6 <=cooking_tick and cooking_tick <=10)
+                    dict["ct13"] = int(11 <=cooking_tick and cooking_tick <=15)
+                    dict["ct17"] = int(15 <=cooking_tick and cookinsauter une ligne g_ticks <=19)
+                    dict["ct20"] = int(cooking_tick == 20)
             if state.players[0].held_object != None : 
                 dict["Objp1"] = 1 
                 dict["p1" + state.players[0].held_object.name] = 1
