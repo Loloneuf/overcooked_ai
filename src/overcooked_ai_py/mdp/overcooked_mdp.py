@@ -1178,14 +1178,8 @@ class OvercookedGridworld(object):
                 dict["Objp2"] = 1 
                 dict["p2" + state.players[1].held_object.name] = 1
             
-            self.future= "Current state :" + str(state) + "\n" + "Replic state :" +str(self.dict_to_state(state,dict)
+            self.future= "Current state :" + str(state) + "\n" + "Replic state :" + str(self.dict_to_state(state,dict))
                 
-                
-            
-                
-                
-
-        
         def vision(self, model,state,npc_action):
             future=""
             list_action =[]
