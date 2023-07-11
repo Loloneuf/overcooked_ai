@@ -1106,6 +1106,14 @@ class OvercookedGridworld(object):
             "interact": Action.INTERACT,
             (0,0): Action.STAY,
             }
+            self.action_to_probs = {
+            (1,0): 2,
+            (0,-1): 0,
+            (0,1): 1,
+            (-1,0): 3,
+            "interact": 5,
+            (0,0): 4,
+            }
 
         
         def dict_to_state(self,state,dict):
@@ -1177,16 +1185,14 @@ class OvercookedGridworld(object):
                 dict["Objp2"] = 1 
                 dict["p2" + state.players[1].held_object.name] = 1'''
 
-            weight_features=[0] * 16
-            action,prob = model.action(state)
-            '''for combinaison in self.combinaisons : 
-                newsaction,proba = model.action(self.dict_to_state(dictionnaire.update({cle: valeur for cle, valeur in zip(dictionnaire.keys)})))
+            weight_features= np.zeros(16)
+            for combinaison in self.combinaisons : 
+                newsaction,proba = model.action(self.dict_to_state(dict.update({cle: valeur for cle, valeur in zip(dict.keys,combinaison)})))
                 if newsaction == npc_action:
-                    tabl=np.array(combinaison)'''
-                    
-                    
-                    
-            self.future= str(action) +"\n" +str(prob) +"\n"
+                    weight_features += np.array(combinaison) * proba[self.action_to_probs[newsaction]]
+
+            weight_feature = weight_features / len(combinaisons)
+            self.future= str(weight_feature)
             
         def vision(self, model,state,npc_action):
             future=""
