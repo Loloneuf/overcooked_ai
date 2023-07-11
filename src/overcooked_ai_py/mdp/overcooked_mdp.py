@@ -1090,7 +1090,7 @@ class OvercookedGridworld(object):
             self.overcooked_world = overcooked_world
             self.collide = False
             self.objectif = "cook "
-            self.grad=[]
+            self.combinaisons = np.array((itertolls.product([0,1], repeat=16)))
             self.future= None
             self.action_to_overcooked_action = {
             "STAY": Action.STAY,
@@ -1156,8 +1156,8 @@ class OvercookedGridworld(object):
                     
         def contrastive(self,model, state,npc_action):
             
-            dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct_idle":0,"ct0":0,"ct3":0,"c8":0,"ct13":0,"ct17":0,"ct20":0,"Objp1":0,"p1onion":0,"p1dish":0,"p1soup":0,"Objp2":0,"p2onion":0,"p2dish":0,"p2soup":0}
-            if "soup" in state.unowned_objects_by_type :
+            dict={"soup": 0, "1ing":0, "2ing":0,"3ing":0,"ct_idle":0,"ct3":0,"c8":0,"ct17":0,"Objp1":0,"p1onion":0,"p1dish":0,"p1soup":0,"Objp2":0,"p2onion":0,"p2dish":0,"p2soup":0}
+            '''if "soup" in state.unowned_objects_by_type :
                 dict["soup"] = 1
                 soupstate = state.unowned_objects_by_type["soup"][0]
                 dict[str(len(soupstate.ingredients)) + "ing"]=1
@@ -1165,21 +1165,29 @@ class OvercookedGridworld(object):
                     dict["ct_idle"] = 1
                 else:
                     cooking_tick=(20 - soupstate.cook_time_remaining) 
-                    dict["ct0"]= int(cooking_tick == 0)
-                    dict["ct3"]= int(1 <=cooking_tick and cooking_tick <=5)
-                    dict["ct8"] = int(6 <=cooking_tick and cooking_tick <=10)
-                    dict["ct13"] = int(11 <=cooking_tick and cooking_tick <=15)
-                    dict["ct17"] = int(15 <=cooking_tick and cooking_tick <=19)
-                    dict["ct20"] = int(cooking_tick == 20)
+                    dict["ct3"]= int(0 <=cooking_tick and cooking_tick <=5)
+                    dict["ct8"] = int(6 <=cooking_tick and cooking_tick <=14)
+                    #dict["ct13"] = int(11 <=cooking_tick and cooking_tick <=15)
+                    dict["ct17"] = int(15 <=cooking_tick and cooking_tick <=20)
+                    #dict["ct20"] = int(cooking_tick == 20)
             if state.players[0].held_object != None : 
                 dict["Objp1"] = 1 
                 dict["p1" + state.players[0].held_object.name] = 1
             if state.players[1].held_object != None : 
                 dict["Objp2"] = 1 
-                dict["p2" + state.players[1].held_object.name] = 1
+                dict["p2" + state.players[1].held_object.name] = 1'''
+
+            weight_features=[0] * 16
+            action,prob = model.action(state)
+            '''for combinaison in self.combinaisons : 
+                newsaction,proba = model.action(self.dict_to_state(dictionnaire.update({cle: valeur for cle, valeur in zip(dictionnaire.keys)})))
+                if newsaction == npc_action:
+                    tabl=np.array(combinaison)'''
+                    
+                    
+                    
+            self.future= str(prob)
             
-            self.future= "Current state :" + str(state) + "\n" + "Replic state :" + str(self.dict_to_state(state,dict))
-                
         def vision(self, model,state,npc_action):
             future=""
             list_action =[]
