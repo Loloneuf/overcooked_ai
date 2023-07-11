@@ -1186,7 +1186,7 @@ class OvercookedGridworld(object):
                     
                     
                     
-            self.future= str(prob)
+            self.future= str(action) +"\n" +str(prob) +"\n"
             
         def vision(self, model,state,npc_action):
             future=""
