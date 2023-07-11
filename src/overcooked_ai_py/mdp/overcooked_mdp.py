@@ -1187,7 +1187,8 @@ class OvercookedGridworld(object):
 
             weight_features= np.zeros(16)
             for combinaison in self.combinaisons : 
-                newsaction,proba = model.action(self.dict_to_state(state,dict.update({cle: valeur for cle, valeur in zip(dict.keys(),combinaison)})))
+                dict.update({cle: valeur for cle, valeur in zip(dict.keys(),combinaison)})
+                newsaction,proba = model.action(self.dict_to_state(state,dict))
                 if newsaction == npc_action:
                     weight_features += np.array(combinaison) * proba[self.action_to_probs[newsaction]]
 
