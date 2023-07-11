@@ -1090,7 +1090,7 @@ class OvercookedGridworld(object):
             self.overcooked_world = overcooked_world
             self.collide = False
             self.objectif = "cook "
-            self.combinaisons = np.array((itertools.product([0,1], repeat=16)))
+            self.combinaisons = np.array(list((itertools.product([0,1], repeat=16))))
             self.future= None
             self.action_to_overcooked_action = {
             "STAY": Action.STAY,
