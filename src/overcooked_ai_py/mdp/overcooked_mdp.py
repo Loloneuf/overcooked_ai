@@ -1190,7 +1190,13 @@ class OvercookedGridworld(object):
                 dict.update({cle: valeur for cle,valeur in zip(dict.keys(),combinaison)})  
                 newsaction,proba = model.action(self.dict_to_state(state,dict))
                 if newsaction == npc_action:
-                    weight_features += np.array(combinaison) * proba[self.action_to_probs[newsaction]]
+                    try :
+                        if type(proba) == type(dict)
+                            weight_features += np.array(combinaison) * proba[ proba.keys()[0] ][self.action_to_probs[newsaction]]
+
+                        else :
+                            self.future=str(type(proba)) + str(proba)
+                            break
 
             weight_feature = weight_features / len(combinaisons)
             self.future= str(weight_feature)
